@@ -2,7 +2,7 @@ require('dotenv').config();
 const { Configuration, OpenAIApi } = require("openai");
 
 
-async function callChatGPT(prompt) {
+async function callChatGPT(prompt) {    //OpenAI로 메시지에 대한 답변을 요청하는 함수
 
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -10,7 +10,6 @@ async function callChatGPT(prompt) {
 
   try {
     const openai = new OpenAIApi(configuration);
-
 
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",

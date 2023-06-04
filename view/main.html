@@ -5,19 +5,164 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #nameForm {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 400px;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+        }
+
+        .radio-group {
+            margin-top: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        #submitButton {
+            display: block;
+            margin-top: 20px;
+        }
+
+        #reply {
+            text-align: center;
+            width: 400px;
+            height: 80px;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+        }
+    </style>
     <title>Document</title>
 </head>
 
 <body>
-    <h1>메인화면</h1>
-    <button onclick="send('인사해줘')">누르면 전송</button>
-    <br/>
-    <a id = "reply"></a>
+    <div class="container">
+        <h1>OpenAI - ChatGPT가 정해주는 닉네임</h1>
+        <form id="nameForm">
+            <div>
+                <strong>몇 글자 이하</strong>
+                <input type="text" id="charNum" name="charNum" value="">
+            </div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="language" value="X" checked> 선택안함
+                </label>
+                <label>
+                    <input type="radio" name="language" value="한글"> 한글
+                </label>
+                <label>
+                    <input type="radio" name="language" value="영어"> 영어
+                </label>
+            </div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="gender" value="X" checked> 선택안함
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="남성"> 남성
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="여성"> 여성
+                </label>
+            </div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="atmosphere" value="X" checked> 선택안함
+                </label>
+                <label>
+                    <input type="radio" name="atmosphere" value="밝음"> 밝음
+                </label>
+                <label>
+                    <input type="radio" name="atmosphere" value="어두움"> 어두움
+                </label>
+            </div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="serious" value="X" checked> 선택안함
+                </label>
+                <label>
+                    <input type="radio" name="serious" value="유머러스함"> 유머러스함
+                </label>
+                <label>
+                    <input type="radio" name="serious" value="진지함"> 진지함
+                </label>
+            </div>
+            <input type="submit" id="submitButton" value="제출">
+        </form>
+        <div id="reply">
+   
+        </div>
+    </div>
 </body>
 <script>
 
-    function replyRender(msg) {
-        document.querySelector("#reply").innerHTML = msg;
+    document.querySelector("#submitButton").onclick = () => {
+        event.preventDefault();
+        let content = "";
+
+        let charNum = document.querySelector("#charNum");
+
+        if (charNum.value != "") content += "'" + charNum.value + "글자 이하' ";
+
+        let language = document.getElementsByName("language");
+        for (let i = 0; i < language.length; i++) {
+            if (language[i].checked) {
+                if (language[i].value != 'X') content += "'" + language[i].value + "' ";
+            }
+        }
+
+        let gender = document.getElementsByName("gender");
+        for (let i = 0; i < gender.length; i++) {
+            if (gender[i].checked) {
+                if (gender[i].value != 'X') content += "'" + gender[i].value + "' ";
+            }
+        }
+
+        let atmosphere = document.getElementsByName("atmosphere");
+        for (let i = 0; i < atmosphere.length; i++) {
+            if (atmosphere[i].checked) {
+                if (atmosphere[i].value != 'X') content += "'" + atmosphere[i].value + "' ";
+            }
+        }
+
+        let serious = document.getElementsByName("serious");
+        for (let i = 0; i < serious.length; i++) {
+            if (serious[i].checked) {
+                if (serious[i].value != 'X') content += "'" + serious[i].value + "' ";
+            }
+        }
+        content += "조건에 맞게 닉네임 추천. 한단어로 대답."        //form형식에서 정해진 값에 따라 OpenAI에게 요청할 메시지를 완성시켜 send 함수로 전달
+
+        send(content);
+    }
+
+    function replyRender(msg) {     //응답으로 돌아온 값을 html에 표현
+        document.querySelector("#reply").innerHTML = `<h2>${msg}</h2>`;
     }
 
     async function send(msg) {  //main.js로 gpt api를 위한 메시지 전송
