@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>메인화면</h1>
+    <button onclick="send('인사해줘')">누르면 전송</button>
+    <br/>
+    <a id = "reply"></a>
+</body>
+<script>
+
+    function replyRender(msg) {
+        document.querySelector("#reply").innerHTML = msg;
+    }
+
+    async function send(msg) {  //main.js로 gpt api를 위한 메시지 전송
+        try {
+            const response = await fetch("../ask", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ "prompt": msg }),
+            });
+
+            const prediction = await response.json();
+            replyRender(prediction.response.content);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            alert('오류가 발생하였습니다. :' + error)
+        } finally {
+        }
+    }
+</script>
+
+</html>
