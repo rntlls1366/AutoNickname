@@ -26,15 +26,21 @@
         }
 
         #nameForm {
-            border: 1px solid #ccc;
+            border: 2px solid #4285F4;
             padding: 20px;
             width: 400px;
             background-color: #f8f8f8;
             border-radius: 5px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
         .radio-group {
             margin-top: 10px;
+            float: left;
         }
 
         input[type="radio"] {
@@ -44,6 +50,13 @@
         #submitButton {
             display: block;
             margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4285F4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
 
         #reply {
@@ -52,7 +65,7 @@
             height: 80px;
             margin-top: 20px;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 2px solid #4285F4;
             background-color: #f8f8f8;
             border-radius: 5px;
         }
@@ -68,54 +81,56 @@
                 <strong>몇 글자 이하</strong>
                 <input type="text" id="charNum" name="charNum" value="">
             </div>
-            <div class="radio-group">
-                <label>
-                    <input type="radio" name="language" value="X" checked> 선택안함
-                </label>
-                <label>
-                    <input type="radio" name="language" value="한글"> 한글
-                </label>
-                <label>
-                    <input type="radio" name="language" value="영어"> 영어
-                </label>
-            </div>
-            <div class="radio-group">
-                <label>
-                    <input type="radio" name="gender" value="X" checked> 선택안함
-                </label>
-                <label>
-                    <input type="radio" name="gender" value="남성"> 남성
-                </label>
-                <label>
-                    <input type="radio" name="gender" value="여성"> 여성
-                </label>
-            </div>
-            <div class="radio-group">
-                <label>
-                    <input type="radio" name="atmosphere" value="X" checked> 선택안함
-                </label>
-                <label>
-                    <input type="radio" name="atmosphere" value="밝음"> 밝음
-                </label>
-                <label>
-                    <input type="radio" name="atmosphere" value="어두움"> 어두움
-                </label>
-            </div>
-            <div class="radio-group">
-                <label>
-                    <input type="radio" name="serious" value="X" checked> 선택안함
-                </label>
-                <label>
-                    <input type="radio" name="serious" value="유머러스함"> 유머러스함
-                </label>
-                <label>
-                    <input type="radio" name="serious" value="진지함"> 진지함
-                </label>
+            <div>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="language" value="X" checked> 선택안함
+                    </label>
+                    <label>
+                        <input type="radio" name="language" value="한글"> 한글
+                    </label>
+                    <label>
+                        <input type="radio" name="language" value="English"> 영어
+                    </label>
+                </div>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="gender" value="X" checked> 선택안함
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" value="Masculine"> 남성
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" value="Feminine"> 여성
+                    </label>
+                </div>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="atmosphere" value="X" checked> 선택안함
+                    </label>
+                    <label>
+                        <input type="radio" name="atmosphere" value="Bright"> 밝음
+                    </label>
+                    <label>
+                        <input type="radio" name="atmosphere" value="Dark"> 어두움
+                    </label>
+                </div>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="serious" value="X" checked> 선택안함
+                    </label>
+                    <label>
+                        <input type="radio" name="serious" value="Funny"> 유머러스함
+                    </label>
+                    <label>
+                        <input type="radio" name="serious" value="Serious"> 진지함
+                    </label>
+                </div>
             </div>
             <input type="submit" id="submitButton" value="제출">
         </form>
         <div id="reply">
-   
+
         </div>
     </div>
 </body>
@@ -127,7 +142,7 @@
 
         let charNum = document.querySelector("#charNum");
 
-        if (charNum.value != "") content += "'" + charNum.value + "글자 이하' ";
+        if (charNum.value != "") content += "'" + charNum.value + "letters or less' ";
 
         let language = document.getElementsByName("language");
         for (let i = 0; i < language.length; i++) {
@@ -156,13 +171,16 @@
                 if (serious[i].value != 'X') content += "'" + serious[i].value + "' ";
             }
         }
-        content += "조건에 맞게 닉네임 추천. 한단어로 대답."        //form형식에서 정해진 값에 따라 OpenAI에게 요청할 메시지를 완성시켜 send 함수로 전달
+        if(content != '') content += "In accordance with the above conditions. "
+        content += "닉네임을 추천해줘. 대답은 한 단어로 해줘."        //form형식에서 정해진 값에 따라 OpenAI에게 요청할 메시지를 완성시켜 send 함수로 전달
+        //console.log(content);
 
         send(content);
     }
 
     function replyRender(msg) {     //응답으로 돌아온 값을 html에 표현
-        document.querySelector("#reply").innerHTML = `<h2>${msg}</h2>`;
+        let fureMsg = msg.replace('.', '');
+        document.querySelector("#reply").innerHTML = `<h2>${fureMsg}</h2>`;
     }
 
     async function send(msg) {  //main.js로 gpt api를 위한 메시지 전송

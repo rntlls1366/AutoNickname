@@ -6,8 +6,12 @@ const router = express.Router();
 const { callChatGPT } = require('./chatgpt');
 
 router.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../view/enter.html'));
+});
+
+router.get('/main', (req, res) => {
     res.sendFile(path.join(__dirname, '../view/main.html'));
-  });
+});
 
 router.get('/ask', async function (req, res) {
     res.render('askgpt', {
