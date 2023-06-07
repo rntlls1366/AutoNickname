@@ -69,6 +69,19 @@
             background-color: #f8f8f8;
             border-radius: 5px;
         }
+
+        .tagList {
+            text-align: center;
+            display: flex;
+        }
+
+        .tag {
+            flex: 1;
+            margin-top: 5px;
+            margin-right: 5px;
+            border: 2px solid yellowgreen;
+            border-radius: 5px;
+        }
     </style>
     <title>Document</title>
 </head>
@@ -76,6 +89,14 @@
 <body>
     <div class="container">
         <h1>OpenAI - ChatGPT가 정해주는 닉네임</h1>
+        <div>
+            <strong>태그 추가</strong>
+            <input type="text" id="charTag" name="charTag" value="">
+            <button id="addTag">추가</button>
+        </div>
+        <div class="tagList">
+
+        </div>
         <form id="nameForm">
             <div>
                 <strong>몇 글자 이하</strong>
@@ -135,6 +156,25 @@
     </div>
 </body>
 <script>
+    var tagList = [];
+
+    document.querySelector("#addTag").onclick = () => {
+        //evevt.preventDefault();
+        let showTag = "";
+        let charTag = document.querySelector("#charTag");
+
+        if (tagList.length >= 5) {
+            alert("추가 태그는 최대 5개 까지 가능합니다.");
+        }
+        else {
+            tagList.push(charTag.value);
+            for (let i = 0; i < tagList.length; i++) {
+                showTag += `<div class="tag">${tagList[i]}</div>`;
+            }
+            document.querySelector(".tagList").innerHTML = showTag;
+        }
+
+    }
 
     document.querySelector("#submitButton").onclick = () => {
         event.preventDefault();
@@ -171,9 +211,13 @@
                 if (serious[i].value != 'X') content += "'" + serious[i].value + "' ";
             }
         }
-        if(content != '') content += "In accordance with the above conditions. "
+
+        for (let i = 0; i < tagList.length; i++) {
+            content += "'" + tagList[i] + "' "
+        }
+        if (content != '') content += "In accordance with the above conditions. "
         content += "닉네임을 추천해줘. 대답은 한 단어로 해줘."        //form형식에서 정해진 값에 따라 OpenAI에게 요청할 메시지를 완성시켜 send 함수로 전달
-        //console.log(content);
+        console.log(content);
 
         send(content);
     }
@@ -198,7 +242,6 @@
         } catch (error) {
             console.error('Error fetching data:', error);
             alert('오류가 발생하였습니다. :' + error)
-        } finally {
         }
     }
 </script>
