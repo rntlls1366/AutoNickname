@@ -20,6 +20,10 @@
             align-items: center;
         }
 
+        .container-tag {
+            margin-bottom: 20px;
+        }
+
         h1 {
             text-align: center;
             margin-bottom: 20px;
@@ -70,6 +74,10 @@
             border-radius: 5px;
         }
 
+        #init {
+            margin-top: 20px;
+        }
+
         .tagList {
             text-align: center;
             display: flex;
@@ -78,8 +86,8 @@
         .tag {
             width: 100px;
             flex: 1;
-            margin-top: 5px;
             margin-right: 5px;
+            margin-bottom: 5px;
             border: 2px solid yellowgreen;
             border-radius: 5px;
         }
@@ -90,7 +98,7 @@
 <body>
     <div class="container">
         <h1>OpenAI - ChatGPT가 정해주는 닉네임</h1>
-        <div>
+        <div class = "container-tag">
             <strong>태그 추가</strong>
             <input type="text" id="charTag" name="charTag" value="">
             <button id="addTag">추가</button>
@@ -120,10 +128,10 @@
                         <input type="radio" name="gender" value="X" checked> 선택안함
                     </label>
                     <label>
-                        <input type="radio" name="gender" value="Masculine"> 남성
+                        <input type="radio" name="gender" value="남성적"> 남성
                     </label>
                     <label>
-                        <input type="radio" name="gender" value="Feminine"> 여성
+                        <input type="radio" name="gender" value="여성적"> 여성
                     </label>
                 </div>
                 <div class="radio-group">
@@ -154,6 +162,7 @@
         <div id="reply">
 
         </div>
+        <button id="init" onclick="window.location.replace('/main')">초기화</button>
     </div>
 </body>
 <script>
@@ -180,6 +189,8 @@
 
     document.querySelector("#submitButton").onclick = () => {
         event.preventDefault();
+        document.querySelector("#reply").innerHTML = "";
+        
         let content = "";
 
         let charNum = document.querySelector("#charNum");
@@ -217,8 +228,8 @@
         for (let i = 0; i < tagList.length; i++) {
             content += "'" + tagList[i] + "' "
         }
-        if (content != '') content += "In accordance with the above conditions. "
-        content += "닉네임을 추천해줘. 대답은 한 단어로 해줘."        //form형식에서 정해진 값에 따라 OpenAI에게 요청할 메시지를 완성시켜 send 함수로 전달
+        if (content != '') content += " 위 조건에 해당하는 "
+        content += "제시된 적 없는 닉네임 추천. 대답은 한 단어로 번역없이"        //form형식에서 정해진 값에 따라 OpenAI에게 요청할 메시지를 완성시켜 send 함수로 전달
         console.log(content);
 
         send(content);
