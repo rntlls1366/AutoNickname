@@ -28,11 +28,16 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 20px; /* 모바일 크기로 조정 */
+            }
+        }
 
         #nameForm {
             border: 2px solid #4285F4;
-            padding: 20px;
-            width: 400px;
+            padding: 3%;
+            width: 50%;
             background-color: #f8f8f8;
             border-radius: 5px;
             text-align: center;
@@ -45,10 +50,6 @@
         .radio-group {
             margin-top: 10px;
             float: left;
-        }
-
-        input[type="radio"] {
-            margin-right: 5px;
         }
 
         #submitButton {
@@ -65,17 +66,16 @@
 
         #reply {
             text-align: center;
-            width: 400px;
+            width: 50%;
             height: 80px;
-            margin-top: 20px;
-            padding: 10px;
+            margin-top: 2%;
             border: 2px solid #4285F4;
             background-color: #f8f8f8;
             border-radius: 5px;
         }
 
         #init {
-            margin-top: 20px;
+            margin-top: 2%;
         }
 
         .tagList {
@@ -97,7 +97,7 @@
 
 <body>
     <div class="container">
-        <h1>OpenAI - ChatGPT가 정해주는 닉네임</h1>
+        <h1>GPT-3.5가 정해주는 점심식사</h1>
         <div class = "container-tag">
             <strong>태그 추가</strong>
             <input type="text" id="charTag" name="charTag" value="">
@@ -108,52 +108,46 @@
         </div>
         <form id="nameForm">
             <div>
-                <strong>몇 글자 이하</strong>
-                <input type="text" id="charNum" name="charNum" value="">
-            </div>
-            <div>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="language" value="X" checked> 선택안함
+                        <input type="radio" name="riceNoodle" value="X" checked> 선택안함
                     </label>
                     <label>
-                        <input type="radio" name="language" value="한글"> 한글
+                        <input type="radio" name="riceNoodle" value="밥"> 밥
                     </label>
                     <label>
-                        <input type="radio" name="language" value="English"> 영어
+                        <input type="radio" name="riceNoodle" value="면"> 면
                     </label>
                 </div>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="gender" value="X" checked> 선택안함
+                        <input type="radio" name="country" value="X" checked> 선택안함
                     </label>
                     <label>
-                        <input type="radio" name="gender" value="남성적"> 남성
+                        <input type="radio" name="country" value="한식"> 한식
                     </label>
                     <label>
-                        <input type="radio" name="gender" value="여성적"> 여성
-                    </label>
-                </div>
-                <div class="radio-group">
-                    <label>
-                        <input type="radio" name="atmosphere" value="X" checked> 선택안함
+                        <input type="radio" name="country" value="중식"> 중식
                     </label>
                     <label>
-                        <input type="radio" name="atmosphere" value="Bright"> 밝음
+                        <input type="radio" name="country" value="일식"> 일식
                     </label>
                     <label>
-                        <input type="radio" name="atmosphere" value="Dark"> 어두움
+                        <input type="radio" name="country" value="양식"> 양식
+                    </label>
+                    <label>
+                        <input type="radio" name="country" value="분식"> 분식
                     </label>
                 </div>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="serious" value="X" checked> 선택안함
+                        <input type="radio" name="howMany" value="X" checked> 선택안함
                     </label>
                     <label>
-                        <input type="radio" name="serious" value="Funny"> 유머러스함
+                        <input type="radio" name="howMany" value="양많음"> 양많이
                     </label>
                     <label>
-                        <input type="radio" name="serious" value="Serious"> 진지함
+                        <input type="radio" name="howMany" value="양적음"> 양적게
                     </label>
                 </div>
             </div>
@@ -195,33 +189,24 @@
 
         let charNum = document.querySelector("#charNum");
 
-        if (charNum.value != "") content += "'" + charNum.value + "letters or less' ";
-
-        let language = document.getElementsByName("language");
+        let language = document.getElementsByName("riceNoodle");
         for (let i = 0; i < language.length; i++) {
             if (language[i].checked) {
                 if (language[i].value != 'X') content += "'" + language[i].value + "' ";
             }
         }
 
-        let gender = document.getElementsByName("gender");
+        let gender = document.getElementsByName("country");
         for (let i = 0; i < gender.length; i++) {
             if (gender[i].checked) {
                 if (gender[i].value != 'X') content += "'" + gender[i].value + "' ";
             }
         }
 
-        let atmosphere = document.getElementsByName("atmosphere");
+        let atmosphere = document.getElementsByName("howMany");
         for (let i = 0; i < atmosphere.length; i++) {
             if (atmosphere[i].checked) {
                 if (atmosphere[i].value != 'X') content += "'" + atmosphere[i].value + "' ";
-            }
-        }
-
-        let serious = document.getElementsByName("serious");
-        for (let i = 0; i < serious.length; i++) {
-            if (serious[i].checked) {
-                if (serious[i].value != 'X') content += "'" + serious[i].value + "' ";
             }
         }
 
@@ -229,7 +214,7 @@
             content += "'" + tagList[i] + "' "
         }
         if (content != '') content += " 위 조건에 해당하는 "
-        content += "제시된 적 없는 닉네임 추천. 대답은 한 단어로 번역없이"        //form형식에서 정해진 값에 따라 OpenAI에게 요청할 메시지를 완성시켜 send 함수로 전달
+        content += "제시된적 없는 식사 메뉴 추천. 대답은 한글 한 단어로"        //form형식에서 정해진 값에 따라 OpenAI에게 요청할 메시지를 완성시켜 send 함수로 전달
         console.log(content);
 
         send(content);
