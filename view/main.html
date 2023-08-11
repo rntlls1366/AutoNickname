@@ -170,6 +170,9 @@
         if (tagList.length >= 5) {
             alert("추가 태그는 최대 5개 까지 가능합니다.");
         }
+        else if(charTag.value.length > 6) {
+            alert("태그 글자 수는 6글자까지 가능합니다.");
+        }
         else {
             tagList.push(charTag.value);
             for (let i = 0; i < tagList.length; i++) {
