@@ -31,7 +31,7 @@ router.post('/ask', async (req, res) => {       //ask url로 json형식 요청�
 
     const ip = req.ip;
     let count = ipMap.get(ip);
-    console.log("ip : " + ip + " ipMap : " + count);
+    //console.log("ip : " + ip + " ipMap : " + count);
     if (count === undefined || count === 0) {
         ipMap.set(ip, 1);
     }
