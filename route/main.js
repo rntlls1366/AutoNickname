@@ -39,7 +39,7 @@ router.post('/ask', async (req, res) => {       //ask url로 json형식 요청�
         ipMap.set(ip, count + 1);
     }
 
-    if (count < 50 || count === undefined) {
+    if (count < 30 || count === undefined) {
         const prompt = req.body.prompt;
         const response = await callChatGPT(prompt);
 

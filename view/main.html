@@ -252,9 +252,8 @@
         for (let i = 0; i < tagList.length; i++) {
             content += "'" + tagList[i] + "' "
         }
-        if (content != '') content += " 위 조건에 해당하는 "
+        if (content != '') content += " 에 관련된 "
         content += "제시된적 없는 식사 메뉴 추천. 대답은 한글 한 단어로"        //form형식에서 정해진 값에 따라 OpenAI에게 요청할 메시지를 완성시켜 send 함수로 전달
-        console.log(content);
 
         send(content);
     }
@@ -276,7 +275,8 @@
 
             const prediction = await response.json();
             console.log(prediction);
-            if (prediction.response === undefined) alert('일일 사용횟수 20회를 초과하셨습니다.');
+            if(prediction.error) alert(prediction.error + '\n단기간에 너무 많은 요청을 보냈습니다.');
+            else if (prediction.response === undefined) alert('일일 사용횟수 30회를 초과하셨습니다.');
             else replyRender(prediction.response.content);
         } catch (error) {
             console.error('Error fetching data:', error);
