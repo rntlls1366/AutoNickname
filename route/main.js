@@ -46,7 +46,7 @@ router.post('/ask', async (req, res) => {       //ask url로 json형식 요청�
         if (response) {
             res.json({ 'response': response });
         } else {
-            res.status(500).json({ 'error': 'Failed to get response from ChatGPT API' });
+            res.status(500).json({ 'error': '너무 많은 요청 보냄' });
         }
     }
     else {
