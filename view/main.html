@@ -6,6 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        @font-face {
+            font-family: 'omyu_pretty';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
             display: flex;
             justify-content: center;
@@ -22,20 +29,18 @@
 
         .container-tag {
             margin-bottom: 20px;
+            font-family: 'omyu_pretty';
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
         @media (max-width: 768px) {
             h1 {
-                font-size: 20px; /* 모바일 크기로 조정 */
+                font-size: 20px;
+                /* 모바일 크기로 조정 */
             }
         }
 
         #nameForm {
-            border: 2px solid #4285F4;
+            border: 2px solid #EBC390;
             padding: 3%;
             width: 50%;
             background-color: #f8f8f8;
@@ -45,6 +50,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            font-family: 'omyu_pretty';
         }
 
         .radio-group {
@@ -57,11 +63,22 @@
             margin-top: 20px;
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #4285F4;
+            background-color: #EBC390;
             color: #fff;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-family: 'omyu_pretty';
+        }
+
+        #add-tag {
+            font-size: 16px;
+            background-color: #EBC390;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'omyu_pretty';
         }
 
         #reply {
@@ -69,18 +86,34 @@
             width: 50%;
             height: 80px;
             margin-top: 2%;
-            border: 2px solid #4285F4;
+            border: 2px solid #EBC390;
             background-color: #f8f8f8;
             border-radius: 5px;
+            font-family: 'omyu_pretty';
         }
 
         #init {
             margin-top: 2%;
+            font-size: 16px;
+            background-color: #EBC390;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'omyu_pretty';
+        }
+
+        .main-h1 {
+            color: #EBC390;
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'omyu_pretty';
         }
 
         .tagList {
             text-align: center;
             display: flex;
+            font-family: 'omyu_pretty';
         }
 
         .tag {
@@ -97,11 +130,11 @@
 
 <body>
     <div class="container">
-        <h1>GPT-3.5가 정해주는 점심식사</h1>
-        <div class = "container-tag">
+        <h1 class="main-h1">GPT-3.5가 정해주는 점심식사</h1>
+        <div class="container-tag">
             <strong>태그 추가</strong>
             <input type="text" id="charTag" name="charTag" value="">
-            <button id="addTag">추가</button>
+            <button id="add-tag">추가</button>
         </div>
         <div class="tagList">
 
@@ -117,6 +150,9 @@
                     </label>
                     <label>
                         <input type="radio" name="riceNoodle" value="면"> 면
+                    </label>
+                    <label>
+                        <input type="radio" name="riceNoodle" value="빵"> 빵
                     </label>
                 </div>
                 <div class="radio-group">
@@ -141,13 +177,13 @@
                 </div>
                 <div class="radio-group">
                     <label>
-                        <input type="radio" name="howMany" value="X" checked> 선택안함
+                        <input type="radio" name="carnivore" value="X" checked> 선택안함
                     </label>
                     <label>
-                        <input type="radio" name="howMany" value="양많음"> 양많이
+                        <input type="radio" name="carnivore" value="육식"> 육식
                     </label>
                     <label>
-                        <input type="radio" name="howMany" value="양적음"> 양적게
+                        <input type="radio" name="carnivore" value="채식"> 채식
                     </label>
                 </div>
             </div>
@@ -162,7 +198,7 @@
 <script>
     var tagList = [];
 
-    document.querySelector("#addTag").onclick = () => {
+    document.querySelector("#add-tag").onclick = () => {
         //evevt.preventDefault();
         let showTag = "";
         let charTag = document.querySelector("#charTag");
@@ -170,7 +206,7 @@
         if (tagList.length >= 5) {
             alert("추가 태그는 최대 5개 까지 가능합니다.");
         }
-        else if(charTag.value.length > 6) {
+        else if (charTag.value.length > 6) {
             alert("태그 글자 수는 6글자까지 가능합니다.");
         }
         else {
@@ -187,7 +223,7 @@
     document.querySelector("#submitButton").onclick = () => {
         event.preventDefault();
         document.querySelector("#reply").innerHTML = "";
-        
+
         let content = "";
 
         let charNum = document.querySelector("#charNum");
@@ -206,7 +242,7 @@
             }
         }
 
-        let atmosphere = document.getElementsByName("howMany");
+        let atmosphere = document.getElementsByName("carnivore");
         for (let i = 0; i < atmosphere.length; i++) {
             if (atmosphere[i].checked) {
                 if (atmosphere[i].value != 'X') content += "'" + atmosphere[i].value + "' ";
@@ -240,7 +276,7 @@
 
             const prediction = await response.json();
             console.log(prediction);
-            if(prediction.response === undefined) alert('일일 사용횟수 20회를 초과하셨습니다.');
+            if (prediction.response === undefined) alert('일일 사용횟수 20회를 초과하셨습니다.');
             else replyRender(prediction.response.content);
         } catch (error) {
             console.error('Error fetching data:', error);
