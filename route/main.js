@@ -7,7 +7,7 @@ const schedule = require('node-schedule');
 var ipMap = new Map();  //<클라이언트의 ip, 사용횟수> 를 저장한 Map
 
 /*매일 자정 저장된 ipMap을 초기화하여 사용횟수를 모두 채운 클라이언트가 다시 이용 가능하도록 */
-const job = schedule.scheduleJob('59 59 23 * *', () => {
+const job = schedule.scheduleJob('0 0 * * *', () => {
     ipMap.clear();
     console.log("ip리스트 초기화");
 });
