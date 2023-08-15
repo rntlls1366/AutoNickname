@@ -53,11 +53,6 @@
             font-family: 'omyu_pretty';
         }
 
-        .radio-group {
-            margin-top: 10px;
-            float: left;
-        }
-
         #submitButton {
             display: block;
             margin-top: 20px;
@@ -141,51 +136,37 @@
         </div>
         <form id="nameForm">
             <div>
-                <div class="radio-group">
-                    <label>
-                        <input type="radio" name="riceNoodle" value="X" checked> 선택안함
-                    </label>
-                    <label>
-                        <input type="radio" name="riceNoodle" value="밥"> 밥
-                    </label>
-                    <label>
-                        <input type="radio" name="riceNoodle" value="면"> 면
-                    </label>
-                    <label>
-                        <input type="radio" name="riceNoodle" value="빵"> 빵
-                    </label>
+                <div>
+                    <label for="riceNoodle">식사 유형</label>
+                    <select name="riceNoodle" id="riceNoodle">
+                        <option value="X">선택안함</option>
+                        <option value="밥">밥</option>
+                        <option value="면">면</option>
+                        <option value="빵">빵</option>
+                    </select>
                 </div>
-                <div class="radio-group">
-                    <label>
-                        <input type="radio" name="country" value="X" checked> 선택안함
-                    </label>
-                    <label>
-                        <input type="radio" name="country" value="한식"> 한식
-                    </label>
-                    <label>
-                        <input type="radio" name="country" value="중식"> 중식
-                    </label>
-                    <label>
-                        <input type="radio" name="country" value="일식"> 일식
-                    </label>
-                    <label>
-                        <input type="radio" name="country" value="양식"> 양식
-                    </label>
+                <div>
+                    <label for="country">음식 종류</label>
+                    <select name="country" id="country">
+                        <option value="X">선택안함</option>
+                        <option value="한식">한식</option>
+                        <option value="중식">중식</option>
+                        <option value="일식">일식</option>
+                        <option value="양식">양식</option>
+                    </select>
                 </div>
-                <div class="radio-group">
-                    <label>
-                        <input type="radio" name="carnivore" value="X" checked> 선택안함
-                    </label>
-                    <label>
-                        <input type="radio" name="carnivore" value="육식"> 육식
-                    </label>
-                    <label>
-                        <input type="radio" name="carnivore" value="채식"> 채식
-                    </label>
+                <div>
+                    <label for="carnivore">식단 유형</label>
+                    <select name="carnivore" id="carnivore">
+                        <option value="X">선택안함</option>
+                        <option value="육식">육식</option>
+                        <option value="채식">채식</option>
+                    </select>
                 </div>
             </div>
             <input type="submit" id="submitButton" value="제출">
         </form>
+        
         <div id="reply">
 
         </div>
