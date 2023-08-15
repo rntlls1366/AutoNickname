@@ -140,27 +140,27 @@
                     <label for="riceNoodle">식사 유형</label>
                     <select name="riceNoodle" id="riceNoodle">
                         <option value="X">선택안함</option>
-                        <option value="밥">밥</option>
-                        <option value="면">면</option>
-                        <option value="빵">빵</option>
+                        <option value="rice">밥</option>
+                        <option value="noodle">면</option>
+                        <option value="bread">빵</option>
                     </select>
                 </div>
                 <div>
                     <label for="country">음식 종류</label>
                     <select name="country" id="country">
                         <option value="X">선택안함</option>
-                        <option value="한식">한식</option>
-                        <option value="중식">중식</option>
-                        <option value="일식">일식</option>
-                        <option value="양식">양식</option>
+                        <option value="Korean-style food">한식</option>
+                        <option value="Chinese-style food">중식</option>
+                        <option value="Japanese-style food">일식</option>
+                        <option value="Western food">양식</option>
                     </select>
                 </div>
                 <div>
                     <label for="carnivore">식단 유형</label>
                     <select name="carnivore" id="carnivore">
                         <option value="X">선택안함</option>
-                        <option value="육식">육식</option>
-                        <option value="채식">채식</option>
+                        <option value="meat">육류</option>
+                        <option value="fruits and vegetables">과채류</option>
                     </select>
                 </div>
             </div>
@@ -206,27 +206,15 @@
 
         let charNum = document.querySelector("#charNum");
 
-        let language = document.getElementsByName("riceNoodle");
-        for (let i = 0; i < language.length; i++) {
-            if (language[i].checked) {
-                if (language[i].value != 'X') content += "'" + language[i].value + "' ";
-            }
-        }
+        let riceNoodle = document.getElementById("riceNoodle");
+        if (riceNoodle.value != 'X') content += "'" + riceNoodle.value + "' ";
 
-        let gender = document.getElementsByName("country");
-        for (let i = 0; i < gender.length; i++) {
-            if (gender[i].checked) {
-                if (gender[i].value != 'X') content += "'" + gender[i].value + "' ";
-            }
-        }
+        let country = document.getElementById("country");
+        if (country.value != 'X') content += "'" + country.value + "' ";
 
-        let atmosphere = document.getElementsByName("carnivore");
-        for (let i = 0; i < atmosphere.length; i++) {
-            if (atmosphere[i].checked) {
-                if (atmosphere[i].value != 'X') content += "'" + atmosphere[i].value + "' ";
-            }
-        }
-
+        let carnivore = document.getElementById("carnivore");
+        if (carnivore.value != 'X') content += "'" + carnivore.value + "' ";
+        
         for (let i = 0; i < tagList.length; i++) {
             content += "'" + tagList[i] + "' "
         }
