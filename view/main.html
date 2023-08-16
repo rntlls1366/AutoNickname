@@ -241,7 +241,7 @@
 
             const prediction = await response.json();
             if(prediction.error) alert('error : ' + prediction.error);
-            else if (prediction.response === undefined) alert('일일 사용횟수 30회를 초과하셨습니다.');
+            else if (prediction.response === undefined) alert('일일 사용횟수 100회를 초과하셨습니다.');
             else replyRender(prediction.response.content);
         } catch (error) {
             alert('오류가 발생하였습니다. :' + error)
