@@ -7,7 +7,7 @@ const schedule = require('node-schedule');
 var ipMap = new Map();  //<클라이언트의 ip, 사용횟수> 를 저장한 Map
 
 /*매일 자정 저장된 ipMap을 초기화하여 사용횟수를 모두 채운 클라이언트가 다시 이용 가능하도록 */
-const job = schedule.scheduleJob('59 59 23 * *', () => {
+const job = schedule.scheduleJob('0 0 * * *', () => {
     ipMap.clear();
     console.log("ip리스트 초기화");
 });
@@ -39,14 +39,14 @@ router.post('/ask', async (req, res) => {       //ask url로 json형식 요청�
         ipMap.set(ip, count + 1);
     }
 
-    if (count < 20 || count === undefined) {
+    if (count < 30 || count === undefined) {
         const prompt = req.body.prompt;
         const response = await callChatGPT(prompt);
 
         if (response) {
             res.json({ 'response': response });
         } else {
-            res.status(500).json({ 'error': 'Failed to get response from ChatGPT API' });
+            res.status(500).json({ 'error': '너무 많은 요청 보냄' });
         }
     }
     else {

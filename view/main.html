@@ -6,6 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        @font-face {
+            font-family: 'omyu_pretty';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
             display: flex;
             justify-content: center;
@@ -22,17 +29,20 @@
 
         .container-tag {
             margin-bottom: 20px;
+            font-family: 'omyu_pretty';
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 20px;
+                /* 모바일 크기로 조정 */
+            }
         }
 
         #nameForm {
-            border: 2px solid #4285F4;
-            padding: 20px;
-            width: 400px;
+            border: 2px solid #EBC390;
+            padding: 3%;
+            width: 50%;
             background-color: #f8f8f8;
             border-radius: 5px;
             text-align: center;
@@ -40,15 +50,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-        }
-
-        .radio-group {
-            margin-top: 10px;
-            float: left;
-        }
-
-        input[type="radio"] {
-            margin-right: 5px;
+            font-family: 'omyu_pretty';
         }
 
         #submitButton {
@@ -56,31 +58,57 @@
             margin-top: 20px;
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #4285F4;
+            background-color: #EBC390;
             color: #fff;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-family: 'omyu_pretty';
+        }
+
+        #add-tag {
+            font-size: 16px;
+            background-color: #EBC390;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'omyu_pretty';
         }
 
         #reply {
             text-align: center;
-            width: 400px;
+            width: 50%;
             height: 80px;
-            margin-top: 20px;
-            padding: 10px;
-            border: 2px solid #4285F4;
+            margin-top: 2%;
+            border: 2px solid #EBC390;
             background-color: #f8f8f8;
             border-radius: 5px;
+            font-family: 'omyu_pretty';
         }
 
         #init {
-            margin-top: 20px;
+            margin-top: 2%;
+            font-size: 16px;
+            background-color: #EBC390;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'omyu_pretty';
+        }
+
+        .main-h1 {
+            color: #EBC390;
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'omyu_pretty';
         }
 
         .tagList {
             text-align: center;
             display: flex;
+            font-family: 'omyu_pretty';
         }
 
         .tag {
@@ -97,68 +125,48 @@
 
 <body>
     <div class="container">
-        <h1>OpenAI - ChatGPT가 정해주는 닉네임</h1>
-        <div class = "container-tag">
+        <h1 class="main-h1">GPT-3.5가 정해주는 점심식사</h1>
+        <div class="container-tag">
             <strong>태그 추가</strong>
             <input type="text" id="charTag" name="charTag" value="">
-            <button id="addTag">추가</button>
+            <button id="add-tag">추가</button>
         </div>
         <div class="tagList">
 
         </div>
         <form id="nameForm">
             <div>
-                <strong>몇 글자 이하</strong>
-                <input type="text" id="charNum" name="charNum" value="">
-            </div>
-            <div>
-                <div class="radio-group">
-                    <label>
-                        <input type="radio" name="language" value="X" checked> 선택안함
-                    </label>
-                    <label>
-                        <input type="radio" name="language" value="한글"> 한글
-                    </label>
-                    <label>
-                        <input type="radio" name="language" value="English"> 영어
-                    </label>
+                <div>
+                    <label for="riceNoodle">식사 유형</label>
+                    <select name="riceNoodle" id="riceNoodle">
+                        <option value="X">선택안함</option>
+                        <option value="rice">밥</option>
+                        <option value="noodle">면</option>
+                        <option value="bread">빵</option>
+                    </select>
                 </div>
-                <div class="radio-group">
-                    <label>
-                        <input type="radio" name="gender" value="X" checked> 선택안함
-                    </label>
-                    <label>
-                        <input type="radio" name="gender" value="남성적"> 남성
-                    </label>
-                    <label>
-                        <input type="radio" name="gender" value="여성적"> 여성
-                    </label>
+                <div>
+                    <label for="country">음식 종류</label>
+                    <select name="country" id="country">
+                        <option value="X">선택안함</option>
+                        <option value="Korean-style food">한식</option>
+                        <option value="Chinese-style food">중식</option>
+                        <option value="Japanese-style food">일식</option>
+                        <option value="Western food">양식</option>
+                    </select>
                 </div>
-                <div class="radio-group">
-                    <label>
-                        <input type="radio" name="atmosphere" value="X" checked> 선택안함
-                    </label>
-                    <label>
-                        <input type="radio" name="atmosphere" value="Bright"> 밝음
-                    </label>
-                    <label>
-                        <input type="radio" name="atmosphere" value="Dark"> 어두움
-                    </label>
-                </div>
-                <div class="radio-group">
-                    <label>
-                        <input type="radio" name="serious" value="X" checked> 선택안함
-                    </label>
-                    <label>
-                        <input type="radio" name="serious" value="Funny"> 유머러스함
-                    </label>
-                    <label>
-                        <input type="radio" name="serious" value="Serious"> 진지함
-                    </label>
+                <div>
+                    <label for="carnivore">식단 유형</label>
+                    <select name="carnivore" id="carnivore">
+                        <option value="X">선택안함</option>
+                        <option value="meat">육류</option>
+                        <option value="fruits and vegetables">과채류</option>
+                    </select>
                 </div>
             </div>
             <input type="submit" id="submitButton" value="제출">
         </form>
+        
         <div id="reply">
 
         </div>
@@ -168,13 +176,16 @@
 <script>
     var tagList = [];
 
-    document.querySelector("#addTag").onclick = () => {
+    document.querySelector("#add-tag").onclick = () => {
         //evevt.preventDefault();
         let showTag = "";
         let charTag = document.querySelector("#charTag");
 
         if (tagList.length >= 5) {
             alert("추가 태그는 최대 5개 까지 가능합니다.");
+        }
+        else if (charTag.value.length > 6) {
+            alert("태그 글자 수는 6글자까지 가능합니다.");
         }
         else {
             tagList.push(charTag.value);
@@ -190,47 +201,25 @@
     document.querySelector("#submitButton").onclick = () => {
         event.preventDefault();
         document.querySelector("#reply").innerHTML = "";
-        
+
         let content = "";
 
         let charNum = document.querySelector("#charNum");
 
-        if (charNum.value != "") content += "'" + charNum.value + "letters or less' ";
+        let riceNoodle = document.getElementById("riceNoodle");
+        if (riceNoodle.value != 'X') content += "'" + riceNoodle.value + "' ";
 
-        let language = document.getElementsByName("language");
-        for (let i = 0; i < language.length; i++) {
-            if (language[i].checked) {
-                if (language[i].value != 'X') content += "'" + language[i].value + "' ";
-            }
-        }
+        let country = document.getElementById("country");
+        if (country.value != 'X') content += "'" + country.value + "' ";
 
-        let gender = document.getElementsByName("gender");
-        for (let i = 0; i < gender.length; i++) {
-            if (gender[i].checked) {
-                if (gender[i].value != 'X') content += "'" + gender[i].value + "' ";
-            }
-        }
-
-        let atmosphere = document.getElementsByName("atmosphere");
-        for (let i = 0; i < atmosphere.length; i++) {
-            if (atmosphere[i].checked) {
-                if (atmosphere[i].value != 'X') content += "'" + atmosphere[i].value + "' ";
-            }
-        }
-
-        let serious = document.getElementsByName("serious");
-        for (let i = 0; i < serious.length; i++) {
-            if (serious[i].checked) {
-                if (serious[i].value != 'X') content += "'" + serious[i].value + "' ";
-            }
-        }
-
+        let carnivore = document.getElementById("carnivore");
+        if (carnivore.value != 'X') content += "'" + carnivore.value + "' ";
+        
         for (let i = 0; i < tagList.length; i++) {
             content += "'" + tagList[i] + "' "
         }
-        if (content != '') content += " 위 조건에 해당하는 "
-        content += "제시된 적 없는 닉네임 추천. 대답은 한 단어로 번역없이"        //form형식에서 정해진 값에 따라 OpenAI에게 요청할 메시지를 완성시켜 send 함수로 전달
-        console.log(content);
+        if (content != '') content += " 에 관련된 "
+        content += "제시된적 없는 식사 메뉴 추천. 대답은 한글 한 단어로"        //form형식에서 정해진 값에 따라 OpenAI에게 요청할 메시지를 완성시켜 send 함수로 전달
 
         send(content);
     }
@@ -251,11 +240,10 @@
             });
 
             const prediction = await response.json();
-            console.log(prediction);
-            if(prediction.response === undefined) alert('일일 사용횟수 20회를 초과하셨습니다.');
+            if(prediction.error) alert('error : ' + prediction.error);
+            else if (prediction.response === undefined) alert('일일 사용횟수 30회를 초과하셨습니다.');
             else replyRender(prediction.response.content);
         } catch (error) {
-            console.error('Error fetching data:', error);
             alert('오류가 발생하였습니다. :' + error)
         }
     }
