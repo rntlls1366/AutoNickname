@@ -98,6 +98,11 @@
             font-family: 'omyu_pretty';
         }
 
+        #charNum {
+            width: 90%;
+            margin-bottom: 10px;
+        }
+
         .main-h1 {
             color: #EBC390;
             text-align: center;
@@ -125,7 +130,7 @@
 
 <body>
     <div class="container">
-        <h1 class="main-h1">GPT-3.5가 정해주는 점심식사</h1>
+        <h1 class="main-h1">GPT-3.5가 정해주는 닉네임</h1>
         <div class="container-tag">
             <strong>태그 추가</strong>
             <input type="text" id="charTag" name="charTag" value="">
@@ -136,31 +141,34 @@
         </div>
         <form id="nameForm">
             <div>
+                <strong>몇 글자 이하</strong>
+                <input type="text" id="charNum" name="charNum" value="">
+            </div>
+            <div>
                 <div>
-                    <label for="riceNoodle">식사 유형</label>
-                    <select name="riceNoodle" id="riceNoodle">
+                    <label for="gender">성별</label>
+                    <select name="gender" id="gender">
                         <option value="X">선택안함</option>
-                        <option value="rice">밥</option>
-                        <option value="noodle">면</option>
-                        <option value="bread">빵</option>
+                        <option value="male">남성</option>
+                        <option value="female">여성</option>
                     </select>
                 </div>
                 <div>
-                    <label for="country">음식 종류</label>
+                    <label for="country">국가</label>
                     <select name="country" id="country">
                         <option value="X">선택안함</option>
-                        <option value="Korean-style food">한식</option>
-                        <option value="Chinese-style food">중식</option>
-                        <option value="Japanese-style food">일식</option>
-                        <option value="Western food">양식</option>
+                        <option value="Korean-style">한국</option>
+                        <option value="Chinese-style">중국</option>
+                        <option value="Japanese-style">일본</option>
+                        <option value="Western-style">서양</option>
                     </select>
                 </div>
                 <div>
-                    <label for="carnivore">식단 유형</label>
-                    <select name="carnivore" id="carnivore">
+                    <label for="atmosphere">성격</label>
+                    <select name="atmosphere" id="atmosphere">
                         <option value="X">선택안함</option>
-                        <option value="meat">육류</option>
-                        <option value="fruits and vegetables">과채류</option>
+                        <option value="Bright">밝음</option>
+                        <option value="Dark">어두움</option>
                     </select>
                 </div>
             </div>
@@ -205,21 +213,22 @@
         let content = "";
 
         let charNum = document.querySelector("#charNum");
+        if(charNum.value !== '') content += charNum + "글자 이하, ";
 
-        let riceNoodle = document.getElementById("riceNoodle");
-        if (riceNoodle.value != 'X') content += "'" + riceNoodle.value + "' ";
+        let gender = document.getElementById("gender");
+        if (gender.value !== 'X') content += "'" + gender.value + "' ";
 
         let country = document.getElementById("country");
-        if (country.value != 'X') content += "'" + country.value + "' ";
+        if (country.value !== 'X') content += "'" + country.value + "' ";
 
-        let carnivore = document.getElementById("carnivore");
-        if (carnivore.value != 'X') content += "'" + carnivore.value + "' ";
+        let atmosphere = document.getElementById("atmosphere");
+        if (atmosphere.value !== 'X') content += "'" + atmosphere.value + "' ";
         
         for (let i = 0; i < tagList.length; i++) {
             content += "'" + tagList[i] + "' "
         }
         if (content != '') content += " 에 관련된 "
-        content += "제시된적 없는 식사 메뉴 추천. 대답은 한글 한 단어로"        //form형식에서 정해진 값에 따라 OpenAI에게 요청할 메시지를 완성시켜 send 함수로 전달
+        content += "제시된적 없는 닉네임 추천. 대답은 한글 한 단어로"        //form형식에서 정해진 값에 따라 OpenAI에게 요청할 메시지를 완성시켜 send 함수로 전달
 
         send(content);
     }
