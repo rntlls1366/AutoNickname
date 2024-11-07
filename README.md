@@ -6,6 +6,6 @@
 #### * 프로젝트
     프로젝트 명: AutoNickname
     언어: JavaScript
-    프레임워크 : Node.js
+    프레임워크 : express.js
     API : OpenAI
     배포여부 : X
